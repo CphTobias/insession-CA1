@@ -105,7 +105,7 @@ public class JokeResourceTest {
                 .body("theJoke", equalTo("Second Joke"))
                 .body("reference", equalTo("from the net"))
                 .body("type", equalTo("riddle"))
-                .body("rating", equalTo(9));
+                .body("rating", equalTo(8));
     }
 
     
