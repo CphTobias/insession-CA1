@@ -59,11 +59,20 @@ function displayAll(all) {
   showAllNode.innerHTML = all.map(person => `<p>${person.name}</p>`).join("")
 }
 
-displayAllBoys(boys)
-displayAllGirls(girls)
-displayAll(all)
-createBoyOnClicks()
-createGirlOnClicks()
+function rebuild(array, all, gender) {
+  if (gender === "boy") {
+    displayAllBoys(array)
+    createBoyOnClicks()
+  } else if (gender === "girl"){
+    displayAllGirls(array)
+    createGirlOnClicks()
+  }
+  displayAll(all)
+}
+
+rebuild(boys, all, "boy")
+rebuild(girls, all, "girl")
+
 
 const boyActions = {
   ADD_BOY: "ADD_BOY",
@@ -78,30 +87,22 @@ function boysReducer(action) {
     case boyActions.ADD_BOY:
       boys = [ ...boys, { id: Math.random(), name: action.payload } ]
       all = [ ...boys, ...girls ]
-      displayAllBoys(boys)
-      displayAll(all)
-      createBoyOnClicks()
+      rebuild(boys, all, "boy")
       break
     case boyActions.REMOVE_FIRST_BOY:
       boys.shift()
       all = [ ...boys, ...girls ]
-      displayAllBoys(boys)
-      displayAll(all)
-      createBoyOnClicks()
+      rebuild(boys, all, "boy")
       break
     case boyActions.REMOVE_LAST_BOY:
       boys.pop()
       all = [ ...boys, ...girls ]
-      displayAllBoys(boys)
-      displayAll(all)
-      createBoyOnClicks()
+      rebuild(boys, all, "boy")
       break
     case boyActions.REMOVE_BY_ID:
       boys = boys.filter(boy => boy.id !== action.payload)
       all = [ ...boys, ...girls ]
-      displayAllBoys(boys)
-      displayAll(all)
-      createBoyOnClicks()
+      rebuild(boys, all, "boy")
       break
     default:
       throw new Error("Unknown action: " + action.type)
@@ -121,30 +122,22 @@ function girlsReducer(action) {
     case girlActions.ADD_GIRL:
       girls = [ ...girls, { id: Math.random(), name: action.payload } ]
       all = [ ...boys, ...girls ]
-      displayAllGirls(girls)
-      displayAll(all)
-      createGirlOnClicks()
+      rebuild(girls, all, "girl")
       break
     case girlActions.REMOVE_FIRST_GIRL:
       girls.shift()
       all = [ ...boys, ...girls ]
-      displayAllGirls(girls)
-      displayAll(all)
-      createGirlOnClicks()
+      rebuild(girls, all, "girl")
       break
     case girlActions.REMOVE_LAST_GIRL:
       girls.pop()
       all = [ ...boys, ...girls ]
-      displayAllGirls(girls)
-      displayAll(all)
-      createGirlOnClicks()
+      rebuild(girls, all, "girl")
       break
     case girlActions.REMOVE_BY_ID:
       girls = girls.filter(girl => girl.id !== action.payload)
       all = [ ...boys, ...girls ]
-      displayAllGirls(girls)
-      displayAll(all)
-      createGirlOnClicks()
+      rebuild(girls, all, "girl")
       break
     default:
       throw new Error("Unknown action: " + action.type)
