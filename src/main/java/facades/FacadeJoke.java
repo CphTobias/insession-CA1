@@ -48,4 +48,8 @@ public class FacadeJoke {
         return new JokeDTO(joke);
     }
     
+    public JokeDTO getById(long id){
+        EntityManager em = emf.createEntityManager();
+        return new JokeDTO(em.find(Joke.class, id));
+    }
 }

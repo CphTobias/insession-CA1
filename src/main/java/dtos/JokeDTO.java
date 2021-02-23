@@ -5,6 +5,7 @@ import entities.Joke;
 import entities.RenameMe;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  *
@@ -85,6 +86,43 @@ public class JokeDTO {
 
     public void setRating(int rating) {
         this.rating = rating;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 79 * hash + Objects.hashCode(this.id);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final JokeDTO other = (JokeDTO) obj;
+        if (this.rating != other.rating) {
+            return false;
+        }
+        if (!Objects.equals(this.theJoke, other.theJoke)) {
+            return false;
+        }
+        if (!Objects.equals(this.reference, other.reference)) {
+            return false;
+        }
+        if (!Objects.equals(this.type, other.type)) {
+            return false;
+        }
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        return true;
     }
 
     @Override
