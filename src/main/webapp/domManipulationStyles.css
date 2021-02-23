@@ -1,6 +1,7 @@
 * {
   padding: 0;
   margin: 0;
+  line-height: 1.5;
   font-family: Arial, sans-serif;
 }
 
@@ -22,7 +23,7 @@
   border: 1px solid #4ba7c8;
   border-radius: 5px;
   padding: 10px;
-  margin: 0 10px;
+  margin: 0 5px;
 }
 
 .show {
