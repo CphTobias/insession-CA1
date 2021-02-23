@@ -21,12 +21,14 @@ public class Joke implements Serializable {
     private String theJoke;
     private String reference;
     private String type;
+    private int rating;
 
-    public Joke(Long id, String theJoke, String reference, String Type) {
+    public Joke(Long id, String theJoke, String reference, String type, int rating) {
         this.id = id;
         this.theJoke = theJoke;
         this.reference = reference;
-        this.type = Type;
+        this.type = type;
+        this.rating = rating;
     }
 
     public Joke() {
@@ -60,9 +62,19 @@ public class Joke implements Serializable {
         return type;
     }
 
-    public void setType(String Type) {
-        this.type = Type;
+    public void setType(String type) {
+        this.type = type;
     }
 
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+
+
+            
    
 }
