@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Plain DOM Manipulation</title>
+</head>
+<body>
+<main>
+
+  <section>
+    <label for="boy-input">
+      <input placeholder="Add boy" id="boy-input"/>
+    </label>
+    <button id="add-boy-button" type="submit">Add Boy</button>
+    <label for="girl-input">
+      <input placeholder="Add girl" id="girl-input"/>
+    </label>
+    <button id="add-girl-button" type="submit">Add Girl</button>
+  </section>
+
+  <section>
+    <button id="remove-boy">Remove boy</button>
+    <button id="remove-girl">Remove girl</button>
+    <label>
+      <input type="radio" name="remove-selection" />
+      Remove first
+    </label>
+    <label>
+      <input type="radio" name="remove-selection"/>
+      Remove last
+    </label>
+    <button id="reverse-all-button">Reverse all</button>
+    <button id="sort-all-button">Sort all</button>
+  </section>
+
+  <section>
+    <div>
+      <h2>Boys</h2>
+      <div id="show-boys"></div>
+    </div>
+    <div>
+      <h2>Girls</h2>
+      <div id="show-girls"></div>
+    </div>
+    <div>
+      <h2>All</h2>
+      <div id="show-all"></div>
+    </div>
+  </section>
+</main>
+</body>
+</html>
