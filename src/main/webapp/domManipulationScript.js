@@ -26,7 +26,9 @@ displayAllGirls(girls)
 displayAll(all)
 
 const boyActions = {
-  ADD_BOY: "ADD_BOY"
+  ADD_BOY: "ADD_BOY",
+  REMOVE_LAST_BOY: "REMOVE_LAST_BOY",
+  REMOVE_FIRST_BOY: "REMOVE_FIRST_BOY",
 }
 //Responsible for all of the actions related to boys
 function boysReducer(action) {
@@ -37,19 +39,45 @@ function boysReducer(action) {
       displayAllBoys(boys)
       displayAll(all)
       break
+    case boyActions.REMOVE_FIRST_BOY:
+      boys.shift()
+      all = [...boys, ...girls]
+      displayAllBoys(boys)
+      displayAll(all)
+      break
+    case boyActions.REMOVE_LAST_BOY:
+      boys.pop()
+      all = [...boys, ...girls]
+      displayAllBoys(boys)
+      displayAll(all)
+      break
     default:
       throw new Error("Unknown action: " + action.type)
   }
 }
 
 const girlActions = {
-  ADD_GIRL: "ADD_GIRL"
+  ADD_GIRL: "ADD_GIRL",
+  REMOVE_LAST_GIRL: "REMOVE_LAST_GIRL",
+  REMOVE_FIRST_GIRL: "REMOVE_FIRST_GIRL",
 }
 //Responsible for all of the actions related to girls
 function girlsReducer(action) {
   switch(action.type) {
     case girlActions.ADD_GIRL:
       girls = [...girls, action.payload]
+      all = [...boys, ...girls]
+      displayAllGirls(girls)
+      displayAll(all)
+      break
+    case girlActions.REMOVE_FIRST_BOY:
+      girls.shift()
+      all = [...boys, ...girls]
+      displayAllGirls(girls)
+      displayAll(all)
+      break
+    case girlActions.REMOVE_LAST_BOY:
+      girls.pop()
       all = [...boys, ...girls]
       displayAllGirls(girls)
       displayAll(all)
@@ -80,3 +108,32 @@ addGirlFormNode.addEventListener("submit", (e) => {
   girlsReducer({type: girlActions.ADD_GIRL, payload: girlInputValue})
   girlInputNode.value = ""
 })
+
+const removeBoyButtonNode = document.getElementById("remove-boy")
+
+//Remove boy click
+removeBoyButtonNode.addEventListener("click", () => {
+  const checkedValue = document.querySelector("input[name='remove-selection']:checked").value;
+  if (checkedValue === "first") {
+    console.log(checkedValue)
+    boysReducer({type: boyActions.REMOVE_FIRST_BOY})
+  } else if (checkedValue === "last") {
+    console.log(checkedValue)
+    boysReducer({type: boyActions.REMOVE_LAST_BOY})
+  }
+})
+
+const removeGirlButtonNode = document.getElementById("remove-girl")
+
+//Remove girl click
+removeGirlButtonNode.addEventListener("click", () => {
+  const checkedValue = document.querySelector("input[name='remove-selection']:checked").value;
+  if (checkedValue === "first") {
+    console.log(checkedValue)
+    girlsReducer({type: girlActions.REMOVE_FIRST_GIRL})
+  } else if (checkedValue === "last") {
+    console.log(checkedValue)
+    girlsReducer({type: girlActions.REMOVE_LAST_GIRL})
+  }
+})
+
