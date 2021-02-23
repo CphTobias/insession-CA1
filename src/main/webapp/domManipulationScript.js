@@ -70,13 +70,13 @@ function girlsReducer(action) {
       displayAllGirls(girls)
       displayAll(all)
       break
-    case girlActions.REMOVE_FIRST_BOY:
+    case girlActions.REMOVE_FIRST_GIRL:
       girls.shift()
       all = [...boys, ...girls]
       displayAllGirls(girls)
       displayAll(all)
       break
-    case girlActions.REMOVE_LAST_BOY:
+    case girlActions.REMOVE_LAST_GIRL:
       girls.pop()
       all = [...boys, ...girls]
       displayAllGirls(girls)
@@ -129,11 +129,23 @@ const removeGirlButtonNode = document.getElementById("remove-girl")
 removeGirlButtonNode.addEventListener("click", () => {
   const checkedValue = document.querySelector("input[name='remove-selection']:checked").value;
   if (checkedValue === "first") {
-    console.log(checkedValue)
     girlsReducer({type: girlActions.REMOVE_FIRST_GIRL})
   } else if (checkedValue === "last") {
-    console.log(checkedValue)
     girlsReducer({type: girlActions.REMOVE_LAST_GIRL})
   }
 })
 
+const reverseAllButtonNode = document.getElementById("reverse-all-button")
+
+//Reverse all click
+reverseAllButtonNode.addEventListener("click", () => {
+  const allReversed = all.reverse()
+  displayAll(allReversed)
+})
+
+const sortAllButtonNode = document.getElementById("sort-all-button")
+
+//Sort all click
+sortAllButtonNode.addEventListener("click", () => {
+  displayAll([...boys, ...girls])
+})
