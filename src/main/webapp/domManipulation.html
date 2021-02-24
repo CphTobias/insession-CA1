@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="domManipulationStyles.css"/>
+  <title>Plain DOM Manipulation</title>
+</head>
+<body>
+<main class="container">
+
+  <section class="flex">
+    <form id="add-boy-form">
+      <label for="boy-input">
+        <input placeholder="Add boy" id="boy-input"/>
+      </label>
+      <button type="submit">Add Boy</button>
+    </form>
+    <form id="add-girl-form">
+      <label for="girl-input">
+        <input placeholder="Add girl" id="girl-input"/>
+      </label>
+      <button type="submit">Add Girl</button>
+    </form>
+  </section>
+
+  <section>
+    <button id="remove-boy">Remove boy</button>
+    <button id="remove-girl">Remove girl</button>
+    <label>
+      <input type="radio" name="remove-selection" value="first"/>
+      Remove first
+    </label>
+    <label>
+      <input type="radio" name="remove-selection" value="last"/>
+      Remove last
+    </label>
+    <button id="reverse-all-button">Reverse all</button>
+    <button id="sort-all-button">Sort all</button>
+  </section>
+
+  <section class="flex">
+    <div class="display-box">
+      <h2>Boys</h2>
+      <div class="show" id="show-boys"></div>
+    </div>
+    <div class="display-box">
+      <h2>Girls</h2>
+      <div class="show" id="show-girls"></div>
+    </div>
+    <div class="display-box">
+      <h2>All</h2>
+      <div class="show" id="show-all"></div>
+    </div>
+  </section>
+</main>
+</body>
+<script src="domManipulationScript.js"></script>
+</html>
