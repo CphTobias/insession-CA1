@@ -7,6 +7,7 @@ package facades;
 
 import dtos.JokeDTO;
 import entities.Joke;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import org.junit.jupiter.api.AfterEach;
@@ -78,6 +79,16 @@ public class FacadeJokeTest {
         JokeDTO actual = facade.getById(id);
         JokeDTO excepted = new JokeDTO(j2);
         assertEquals(excepted, actual);
+           }
+    
+    @Test
+    public void testGetAll(){
+        List<JokeDTO> jokes=facade.getAllJokes();
+        assertEquals(3, jokes.size());
+        assertTrue(jokes.contains(new JokeDTO(j1)));
+        assertTrue(jokes.contains(new JokeDTO(j2)));
+        assertTrue(jokes.contains(new JokeDTO(j3)));
     }
+    
     
 }

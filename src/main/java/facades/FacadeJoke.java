@@ -3,8 +3,11 @@ package facades;
 
 import dtos.JokeDTO;
 import entities.Joke;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -51,7 +54,16 @@ public class FacadeJoke {
     public JokeDTO getById(long id){
         EntityManager em = emf.createEntityManager();
         Joke j=em.find(Joke.class, id);
+        //if not found return something , not null
         if(j==null){return new JokeDTO(null,null,null,null,0);} 
         return new JokeDTO(j);
     }
+    
+    public List<JokeDTO> getAllJokes() {
+        EntityManager em = emf.createEntityManager();
+        TypedQuery<Joke> query = em.createQuery("SELECT j FROM Joke j", Joke.class);
+        List<Joke> jokes = query.getResultList();
+        return JokeDTO.getDtos(jokes);
+    }
+
 }
