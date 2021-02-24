@@ -52,9 +52,9 @@ public class CarFacade {
         }
         return new CarDTO(newCar);
     }
-    public RenameMeDTO getById(long id){
+    public CarDTO getById(long id){
         EntityManager em = emf.createEntityManager();
-        return new RenameMeDTO(em.find(RenameMe.class, id));
+        return new CarDTO(em.find(Car.class, id));
     }
     
     //TODO Remove/Change this before use
@@ -71,11 +71,11 @@ public class CarFacade {
     
     
     
-    public List<RenameMeDTO> getAll(){
+    public List<CarDTO> getAll(){
         EntityManager em = emf.createEntityManager();
-        TypedQuery<RenameMe> query = em.createQuery("SELECT r FROM RenameMe r", RenameMe.class);
-        List<RenameMe> rms = query.getResultList();
-        return RenameMeDTO.getDtos(rms);
+        TypedQuery<Car> query = em.createQuery("SELECT c FROM Car c", Car.class);
+        List<Car> cars = query.getResultList();
+        return CarDTO.getDtos(cars);
     }
     
     public static void main(String[] args) {

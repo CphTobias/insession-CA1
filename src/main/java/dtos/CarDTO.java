@@ -28,10 +28,10 @@ public class CarDTO {
         this.quantity = car.getQuantity();
     }
     
-    public static List<CarDTO> getDtos(List<Car> rms){
-        List<CarDTO> rmdtos = new ArrayList();
-        rms.forEach(rm->rmdtos.add(new CarDTO(rm)));
-        return rmdtos;
+    public static List<CarDTO> getDtos(List<Car> cars){
+        List<CarDTO> cardtos = new ArrayList();
+        cars.forEach(car->cardtos.add(new CarDTO(car)));
+        return cardtos;
     }
 
     public String getManufacturer() {

@@ -1,5 +1,7 @@
 package facades;
 
+import dtos.CarDTO;
+import entities.Car;
 import utils.EMF_Creator;
 import entities.RenameMe;
 import javax.persistence.EntityManager;
@@ -13,18 +15,18 @@ import org.junit.jupiter.api.Test;
 
 //Uncomment the line below, to temporarily disable this test
 //@Disabled
-public class FacadeExampleTest {
+public class CarFacadeTest {
 
     private static EntityManagerFactory emf;
-    private static FacadeExample facade;
+    private static CarFacade facade;
 
-    public FacadeExampleTest() {
+    public CarFacadeTest() {
     }
 
     @BeforeAll
     public static void setUpClass() {
        emf = EMF_Creator.createEntityManagerFactoryForTest();
-       facade = FacadeExample.getFacadeExample(emf);
+       facade = CarFacade.getCarFacade(emf);
     }
 
     @AfterAll
@@ -39,10 +41,13 @@ public class FacadeExampleTest {
         EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
+            em.createNamedQuery("Car.deleteAllRows").executeUpdate();
+            em.persist(new Car("Tesla", 2020, "Model Roadster", 1250000, 15));
+            em.persist(new Car("Ford", 2015, "Model Mondeo", 1250000, 19));
+
             em.createNamedQuery("RenameMe.deleteAllRows").executeUpdate();
             em.persist(new RenameMe("Some txt", "More text"));
             em.persist(new RenameMe("aaa", "bbb"));
-
             em.getTransaction().commit();
         } finally {
             em.close();
@@ -58,6 +63,16 @@ public class FacadeExampleTest {
     @Test
     public void testAFacadeMethod() {
         assertEquals(2, facade.getRenameMeCount(), "Expects two rows in the database");
+    }
+    
+    @Test
+    public void Create() {
+        
+        facade.create(new CarDTO(new Car("Sedan", 2012, "Camry", 50000, 4)));
+        int exp = 3;
+        int result = facade.getAll().size();
+        
+        assertEquals(exp, result);
     }
     
 
