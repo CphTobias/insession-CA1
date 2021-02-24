@@ -50,6 +50,8 @@ public class FacadeJoke {
     
     public JokeDTO getById(long id){
         EntityManager em = emf.createEntityManager();
-        return new JokeDTO(em.find(Joke.class, id));
+        Joke j=em.find(Joke.class, id);
+        if(j==null){return new JokeDTO(null,null,null,null,0);} 
+        return new JokeDTO(j);
     }
 }
