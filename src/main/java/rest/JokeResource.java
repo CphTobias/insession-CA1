@@ -10,6 +10,7 @@ import com.google.gson.GsonBuilder;
 import dtos.JokeDTO;
 import facades.FacadeExample;
 import facades.FacadeJoke;
+import facades.JokePopulator;
 import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
@@ -44,5 +45,11 @@ public class JokeResource {
        return new Gson().toJson(jdto);
     }
 
-  
+    @Path ("/populate")
+           
+    @GET
+    @Produces (MediaType.APPLICATION_JSON)
+    public void populate(){
+        JokePopulator.populate();
+    }
 }

@@ -1,4 +1,4 @@
-     const URL = "http://localhost:8080/jpareststarter/api/joke/"
+     const URL = "/jpareststarter/api/joke/"
 document.getElementById("form").addEventListener("submit", function (event) {
     event.preventDefault();
    let id=document.getElementById("id").value;
