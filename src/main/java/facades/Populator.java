@@ -5,8 +5,11 @@
  */
 package facades;
 
+import dtos.CarDTO;
 import dtos.RenameMeDTO;
+import entities.Car;
 import entities.RenameMe;
+import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import utils.EMF_Creator;
 
@@ -24,7 +27,23 @@ public class Populator {
         
     }
     
+    public static void populateDB() {
+        EntityManagerFactory emf = EMF_Creator.createEntityManagerFactory();
+        CarFacade cf = CarFacade.getCarFacade(emf);
+        
+            cf.create(new CarDTO(new Car("Tesla", 2020, "Model Roadster", 1250000, 15)));
+            cf.create(new CarDTO(new Car("Tesla", 2012, "Model S", 1250000, 35)));
+            cf.create(new CarDTO(new Car("Tesla", 2014, "Model 3", 1250000, 20)));
+            cf.create(new CarDTO(new Car("Tesla", 2017, "Model X", 1250000, 9)));
+            cf.create(new CarDTO(new Car("Tesla", 2018, "Model Y", 1250000, 23)));
+            cf.create(new CarDTO(new Car("Ford", 2015, "Model Mondeo", 1250000, 19)));
+            
+            
+        
+    }
+    
     public static void main(String[] args) {
         populate();
+        populateDB();
     }
 }
