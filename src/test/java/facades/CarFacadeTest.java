@@ -4,6 +4,7 @@ import dtos.CarDTO;
 import entities.Car;
 import utils.EMF_Creator;
 import entities.RenameMe;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import org.junit.jupiter.api.AfterAll;
@@ -75,5 +76,14 @@ public class CarFacadeTest {
         assertEquals(exp, result);
     }
     
+    @Test
+    public void getCarsByManufacturer() {
+        
+        String input = "Tesla";
+        String exp = "Tesla";
+        List<CarDTO> resultList = facade.getCarsByManufacturer(input);
+        String result = resultList.get(0).getManufacturer();
+        assertEquals(exp, result);
+    }
 
 }

@@ -57,6 +57,21 @@ public class CarFacade {
         return new CarDTO(em.find(Car.class, id));
     }
     
+    public List<CarDTO> getCarsByManufacturer(String manufacturer) {
+        EntityManager em = emf.createEntityManager();
+        try {
+            TypedQuery<Car> query
+                    = em.createQuery("Select c from Car c where c.manufacturer = :manufacturer", Car.class);
+            query.setParameter("manufacturer", manufacturer);
+            List<Car> cars = query.getResultList();
+            return CarDTO.getDtos(cars);
+            
+        } finally {
+            em.close();
+        }
+        
+        
+    }
     //TODO Remove/Change this before use
     public long getRenameMeCount(){
         EntityManager em = emf.createEntityManager();
