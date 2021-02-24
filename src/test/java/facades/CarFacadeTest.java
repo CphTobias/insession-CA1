@@ -46,9 +46,7 @@ public class CarFacadeTest {
             em.persist(new Car("Tesla", 2020, "Model Roadster", 1250000, 15));
             em.persist(new Car("Ford", 2015, "Model Mondeo", 1250000, 19));
 
-            em.createNamedQuery("RenameMe.deleteAllRows").executeUpdate();
-            em.persist(new RenameMe("Some txt", "More text"));
-            em.persist(new RenameMe("aaa", "bbb"));
+            
             em.getTransaction().commit();
         } finally {
             em.close();
@@ -63,7 +61,7 @@ public class CarFacadeTest {
     // TODO: Delete or change this method 
     @Test
     public void testAFacadeMethod() {
-        assertEquals(2, facade.getRenameMeCount(), "Expects two rows in the database");
+        assertEquals(2, facade.getCarCount(), "Expects two rows in the database");
     }
     
     @Test
