@@ -65,5 +65,11 @@ public class FacadeJoke {
         List<Joke> jokes = query.getResultList();
         return JokeDTO.getDtos(jokes);
     }
+    
+    public JokeDTO getRandom(){
+        List<JokeDTO> jokes=getAllJokes();
+        int chosenOne=(int)(Math.random() * jokes.size());
+        return jokes.get(chosenOne);
+    }
 
 }

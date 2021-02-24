@@ -107,6 +107,17 @@ public class JokeResourceTest {
                 .body("type", equalTo("riddle"))
                 .body("rating", equalTo(8));
     }
+ @Test
+    public void testgetall() throws Exception {
+        given()
+                .contentType("application/json")
+                .get("/joke/all").then()
+                .assertThat()
+                .statusCode(HttpStatus.OK_200.getStatusCode());
+             
+            
+              
+    }
 
     
 }

@@ -90,5 +90,21 @@ public class FacadeJokeTest {
         assertTrue(jokes.contains(new JokeDTO(j3)));
     }
     
+    @Test
+    public void testGetRandom() {
+        Long id = facade.getRandom().getId();
+        Long min = id;
+        Long max = id;
+        for (int i = 0; i < 10; i++) {
+            id = facade.getRandom().getId();
+            if (id < min) {
+                min = id;
+            };
+            if (id > max) {
+                max = id;
+            };
+        }
+        assertTrue(max > min);
+    }
     
 }

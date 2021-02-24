@@ -60,4 +60,11 @@ public class JokeResource {
     public void populate(){
         JokePopulator.populate();
     }
+    
+    @Path("/random")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getRandom() {
+        return new Gson().toJson(FACADE.getRandom());
+    }
 }
