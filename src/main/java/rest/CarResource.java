@@ -45,4 +45,11 @@ public class CarResource {
         //System.out.println("--------------->"+count);
         return "{\"count\":"+count+"}";  //Done manually so no need for a DTO
     }
+    
+    @Path("all")
+    @GET
+    @Produces({MediaType.APPLICATION_JSON})
+    public String getAllCars() {
+        return GSON.toJson(FACADE.getAll());
+    }
 }
