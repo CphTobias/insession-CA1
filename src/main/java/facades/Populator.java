@@ -31,12 +31,12 @@ public class Populator {
         EntityManagerFactory emf = EMF_Creator.createEntityManagerFactory();
         CarFacade cf = CarFacade.getCarFacade(emf);
         
-            cf.create(new CarDTO(new Car("Tesla", 2020, "Model Roadster", 1250000, 15)));
-            cf.create(new CarDTO(new Car("Tesla", 2012, "Model S", 1250000, 35)));
-            cf.create(new CarDTO(new Car("Tesla", 2014, "Model 3", 1250000, 20)));
-            cf.create(new CarDTO(new Car("Tesla", 2017, "Model X", 1250000, 9)));
-            cf.create(new CarDTO(new Car("Tesla", 2018, "Model Y", 1250000, 23)));
-            cf.create(new CarDTO(new Car("Ford", 2015, "Model Mondeo", 1250000, 19)));
+            cf.create(new CarDTO(new Car("Tesla", 1250000, "Model Roadster", 2020, 15)));
+            cf.create(new CarDTO(new Car("Tesla", 750000, "Model S", 2012, 35)));
+            cf.create(new CarDTO(new Car("Tesla", 335545, "Model 3", 2014, 20)));
+            cf.create(new CarDTO(new Car("Tesla", 975499, "Model X", 2017, 9)));
+            cf.create(new CarDTO(new Car("Tesla", 325999, "Model Y", 2018, 23)));
+            cf.create(new CarDTO(new Car("Ford", 389499, "Model Mondeo", 2015, 19)));
             
             
         

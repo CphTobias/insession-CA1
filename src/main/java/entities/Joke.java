@@ -2,6 +2,7 @@
 package entities;
 
 import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -82,6 +83,47 @@ public class Joke implements Serializable {
 
     public void setRating(int rating) {
         this.rating = rating;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 29 * hash + Objects.hashCode(this.id);
+        hash = 29 * hash + Objects.hashCode(this.theJoke);
+        hash = 29 * hash + Objects.hashCode(this.reference);
+        hash = 29 * hash + Objects.hashCode(this.type);
+        hash = 29 * hash + this.rating;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Joke other = (Joke) obj;
+        if (this.rating != other.rating) {
+            return false;
+        }
+        if (!Objects.equals(this.theJoke, other.theJoke)) {
+            return false;
+        }
+        if (!Objects.equals(this.reference, other.reference)) {
+            return false;
+        }
+        if (!Objects.equals(this.type, other.type)) {
+            return false;
+        }
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        return true;
     }
 
 

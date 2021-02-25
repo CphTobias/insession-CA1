@@ -11,6 +11,7 @@ import dtos.JokeDTO;
 import facades.FacadeExample;
 import facades.FacadeJoke;
 import facades.JokePopulator;
+import java.util.List;
 import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
@@ -45,11 +46,25 @@ public class JokeResource {
        return new Gson().toJson(jdto);
     }
 
+    @Path ("/all")
+    @GET
+    @Produces (MediaType.APPLICATION_JSON)
+    public String getAll(){
+        List<JokeDTO> jokes=FACADE.getAllJokes();
+       return new Gson().toJson(jokes);
+    }
+    
     @Path ("/populate")
-           
     @GET
     @Produces (MediaType.APPLICATION_JSON)
     public void populate(){
         JokePopulator.populate();
+    }
+    
+    @Path("/random")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getRandom() {
+        return new Gson().toJson(FACADE.getRandom());
     }
 }

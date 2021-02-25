@@ -1,5 +1,6 @@
 package rest;
 
+import dtos.JokeDTO;
 import entities.Joke;
 import entities.RenameMe;
 import utils.EMF_Creator;
@@ -7,6 +8,7 @@ import io.restassured.RestAssured;
 import static io.restassured.RestAssured.given;
 import io.restassured.parsing.Parser;
 import java.net.URI;
+import java.util.Arrays;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.core.UriBuilder;
@@ -14,7 +16,11 @@ import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.grizzly.http.util.HttpStatus;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
+import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasItems;
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.isIn;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -31,7 +37,7 @@ public class JokeResourceTest {
     private Joke j1;
     private Joke j2;
     private Joke j3;
-
+  
     static final URI BASE_URI = UriBuilder.fromUri(SERVER_URL).port(SERVER_PORT).build();
     private static HttpServer httpServer;
     private static EntityManagerFactory emf;
@@ -69,23 +75,20 @@ public class JokeResourceTest {
     public void setUp() {
         EntityManager em = emf.createEntityManager();
         j1 = new Joke("First Joke", "from the net", "riddle", 2);
-        em.persist(j1);
         j2 = new Joke("Second Joke", "from the net", "riddle", 8);
-        em.persist(j2);
         j3 = new Joke("Third Joke", "selfmade", "dirty", 6);
-        em.persist(j3);
-
+       
         try {
             em.getTransaction().begin();
-            em.createNamedQuery("RenameMe.deleteAllRows").executeUpdate();
+            em.createNamedQuery("Joke.deleteAllRows").executeUpdate();
             em.persist(j1);
             em.persist(j2);
-            em.persist(j2);
-
+            em.persist(j3);
             em.getTransaction().commit();
         } finally {
             em.close();
         }
+       
     }
 
     @Test
@@ -107,6 +110,26 @@ public class JokeResourceTest {
                 .body("type", equalTo("riddle"))
                 .body("rating", equalTo(8));
     }
+ @Test
+    public void testgetall() throws Exception {
+        given()
+                .contentType("application/json")
+                .get("/joke/all").then()
+                .assertThat()
+                .statusCode(HttpStatus.OK_200.getStatusCode())
+                .body("", hasSize(3))
+                .body("theJoke",hasItems("First Joke","Second Joke","Third Joke"));
+    }
 
+    @Test
+    public void testgetRandom() throws Exception {
+        given()
+                .contentType("application/json")
+                .get("/joke/random").then()
+                .assertThat()
+                .statusCode(HttpStatus.OK_200.getStatusCode())
+                .body("theJoke",isIn(Arrays.asList("First Joke","Second Joke","Third Joke")));
+                
+    }
     
 }

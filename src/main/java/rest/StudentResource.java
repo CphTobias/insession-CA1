@@ -3,6 +3,8 @@ package rest;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dtos.StudentDTO;
+import facades.JokePopulator;
+import facades.PopulatorStudent;
 import utils.EMF_Creator;
 import facades.FacadeStudent;
 import java.util.List;
@@ -43,7 +45,14 @@ public class StudentResource {
         List<StudentDTO> studentDTOs = FACADE.getAll();
         return GSON.toJson(studentDTOs);
     }
-        
+
+    @Path ("/populate")
+    @GET
+    @Produces (MediaType.APPLICATION_JSON)
+    public void populate() {
+        PopulatorStudent.populate();
+    }
+
     @Path("byid/{id}")
     @GET
     @Produces({MediaType.APPLICATION_JSON})
