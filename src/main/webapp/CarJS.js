@@ -5,34 +5,32 @@
  */
 
 
-document.getElementById("carTable").innerHTML = fetchAllCars();
+document.getElementById("car-table").innerHTML = fetchAllCars();
 
 let switchbutton = true;
 let getAllCarsBtn = document.getElementById("getAllCarsBtn");
-getAllCarsBtn.addEventListener('click', (event) => {
-    event.preventDefault();
+getAllCarsBtn.addEventListener('click', () => {
     fetchAllCars();
 });
 
 function fetchAllCars() {
     let url = 'api/car/all';
-    let allCars = document.getElementById("carTable");
+    let allCars = document.getElementById("car-div");
     fetch(url)
             .then(res => res.json())
             .then(data => {
                 let newArray = data.map(x => `<tr><td>${x.manufacturer}</td><td>${x.year}</td><td>${x.model}</td><td>${x.price}</td><td>${x.quantity}</td></tr>`);
                 allCars.innerHTML =
-                    `<table id="carTable">
+                    `<table class="table" id="car-table">
                         <thead><th onclick="sortTable(0)">Manufacturer</th><th onclick="sortTable(1)">Year</th><th onclick="sortTable(2)">Model</th><th onclick="sortTable(3)">Price</th><th onclick="sortTable(4)">Quantity</th></thead>
-                        ${newArray.join("")}
+                        <tbody>${newArray.join("")}</tbody>
                     </table>`;
             });
 }
 
-
             function sortTable(n) {
                 var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
-                table = document.getElementById("carTable");
+                table = document.getElementById("car-table");
                 switching = true;                
                 dir = "asc";
                 while (switching) {
