@@ -74,8 +74,7 @@ public class StudentDTO {
     public String toString() {
         return "StudentDTO{" + "id=" + id + ", name=" + name + ", studentId=" + studentId + ", fTvShow=" + fTvShow + '}';
     }
-
-    
+      
     
     
 }
