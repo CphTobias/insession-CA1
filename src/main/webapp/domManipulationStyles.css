@@ -1,0 +1,47 @@
+* {
+  padding: 0;
+  margin: 0;
+  line-height: 1.5;
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.flex {
+  display: flex;
+}
+
+.display-box {
+  text-align: center;
+  width: 200px;
+  border: 1px solid #4ba7c8;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 0 5px;
+}
+
+.show {
+  margin-top: 7px;
+}
+
+section {
+  margin: 5px 0;
+}
+
+h2 {
+  color: #4ba7c8;
+}
+
+button {
+  padding: 5px;
+}
+
+input {
+  padding: 5px;
+}
