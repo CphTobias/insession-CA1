@@ -8,6 +8,7 @@ import io.restassured.RestAssured;
 import static io.restassured.RestAssured.given;
 import io.restassured.parsing.Parser;
 import java.net.URI;
+import java.util.Arrays;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.core.UriBuilder;
@@ -15,9 +16,11 @@ import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.grizzly.http.util.HttpStatus;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
+import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasItems;
 import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.isIn;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -34,11 +37,7 @@ public class JokeResourceTest {
     private Joke j1;
     private Joke j2;
     private Joke j3;
-    
-    private JokeDTO j1d;
-    private JokeDTO j2d;
-    private JokeDTO j3d;
-
+  
     static final URI BASE_URI = UriBuilder.fromUri(SERVER_URL).port(SERVER_PORT).build();
     private static HttpServer httpServer;
     private static EntityManagerFactory emf;
@@ -89,9 +88,7 @@ public class JokeResourceTest {
         } finally {
             em.close();
         }
-        j1d=new JokeDTO(j1);
-        j2d=new JokeDTO(j2);
-        j3d=new JokeDTO(j3);
+       
     }
 
     @Test
@@ -120,7 +117,8 @@ public class JokeResourceTest {
                 .get("/joke/all").then()
                 .assertThat()
                 .statusCode(HttpStatus.OK_200.getStatusCode())
-                .body("", hasSize(3));
+                .body("", hasSize(3))
+                .body("theJoke",hasItems("First Joke","Second Joke","Third Joke"));
     }
 
     @Test
@@ -129,7 +127,8 @@ public class JokeResourceTest {
                 .contentType("application/json")
                 .get("/joke/random").then()
                 .assertThat()
-                .statusCode(HttpStatus.OK_200.getStatusCode());
+                .statusCode(HttpStatus.OK_200.getStatusCode())
+                .body("theJoke",isIn(Arrays.asList("First Joke","Second Joke","Third Joke")));
                 
     }
     
