@@ -1,5 +1,6 @@
 package rest;
 
+import dtos.JokeDTO;
 import entities.Joke;
 import entities.RenameMe;
 import utils.EMF_Creator;
@@ -15,6 +16,8 @@ import org.glassfish.grizzly.http.util.HttpStatus;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasItems;
+import static org.hamcrest.Matchers.hasSize;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -31,6 +34,10 @@ public class JokeResourceTest {
     private Joke j1;
     private Joke j2;
     private Joke j3;
+    
+    private JokeDTO j1d;
+    private JokeDTO j2d;
+    private JokeDTO j3d;
 
     static final URI BASE_URI = UriBuilder.fromUri(SERVER_URL).port(SERVER_PORT).build();
     private static HttpServer httpServer;
@@ -69,23 +76,22 @@ public class JokeResourceTest {
     public void setUp() {
         EntityManager em = emf.createEntityManager();
         j1 = new Joke("First Joke", "from the net", "riddle", 2);
-        em.persist(j1);
         j2 = new Joke("Second Joke", "from the net", "riddle", 8);
-        em.persist(j2);
         j3 = new Joke("Third Joke", "selfmade", "dirty", 6);
-        em.persist(j3);
-
+       
         try {
             em.getTransaction().begin();
-            em.createNamedQuery("RenameMe.deleteAllRows").executeUpdate();
+            em.createNamedQuery("Joke.deleteAllRows").executeUpdate();
             em.persist(j1);
             em.persist(j2);
-            em.persist(j2);
-
+            em.persist(j3);
             em.getTransaction().commit();
         } finally {
             em.close();
         }
+        j1d=new JokeDTO(j1);
+        j2d=new JokeDTO(j2);
+        j3d=new JokeDTO(j3);
     }
 
     @Test
@@ -113,11 +119,19 @@ public class JokeResourceTest {
                 .contentType("application/json")
                 .get("/joke/all").then()
                 .assertThat()
-                .statusCode(HttpStatus.OK_200.getStatusCode());
-             
-            
-              
+                .statusCode(HttpStatus.OK_200.getStatusCode())
+                .body("", hasSize(3))
+                .body("".theJoke,hasItems(j1.getTheJoke(),j2.getTheJoke(),j3.getTheJoke()));
     }
 
+    @Test
+    public void testgetRandom() throws Exception {
+        given()
+                .contentType("application/json")
+                .get("/joke/random").then()
+                .assertThat()
+                .statusCode(HttpStatus.OK_200.getStatusCode());
+                
+    }
     
 }
