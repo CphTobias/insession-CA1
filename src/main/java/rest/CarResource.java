@@ -8,12 +8,13 @@ import facades.FacadeExample;
 import facades.Populator;
 import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 //Todo Remove or change relevant parts before ACTUAL use
-@Path("Car")
+@Path("car")
 public class CarResource {
 
     private static final EntityManagerFactory EMF = EMF_Creator.createEntityManagerFactory();
@@ -28,7 +29,7 @@ public class CarResource {
         return "{\"msg\":\"Hello World\"}";
     }
     
-    @Path("/Populate")
+    @Path("/populate")
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public String populate() {
@@ -45,4 +46,13 @@ public class CarResource {
         //System.out.println("--------------->"+count);
         return "{\"count\":"+count+"}";  //Done manually so no need for a DTO
     }
+    
+    @Path("all")
+    @GET
+    @Produces({MediaType.APPLICATION_JSON})
+    public String getAllCars() {
+        return GSON.toJson(FACADE.getAll());
+    }
+    
+    
 }
