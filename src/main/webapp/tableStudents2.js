@@ -1,5 +1,5 @@
 
-const URL = "http://localhost:8080/jpareststarter/api/student/all";
+const URL = "api/student/all";
 
 document.getElementById("btn1").onclick = getAll;
 

@@ -15,7 +15,7 @@ getAllCarsBtn.addEventListener('click', (event) => {
 });
 
 function fetchAllCars() {
-    let url = '/jpareststarter/api/car/all';
+    let url = 'api/car/all';
     let allCars = document.getElementById("carTable");
     fetch(url)
             .then(res => res.json())
