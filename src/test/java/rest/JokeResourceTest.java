@@ -94,7 +94,7 @@ public class JokeResourceTest {
     @Test
     public void testServerIsUp() {
         System.out.println("Testing is server UP");
-        given().when().get("/xxx").then().statusCode(200);
+        given().when().get("/joke/all").then().statusCode(200);
     }
 
    
@@ -105,10 +105,10 @@ public class JokeResourceTest {
                 .get("/joke/"+j2.getId()).then()
                 .assertThat()
                 .statusCode(HttpStatus.OK_200.getStatusCode())
-                .body("theJoke", equalTo("Second Joke"))
-                .body("reference", equalTo("from the net"))
-                .body("type", equalTo("riddle"))
-                .body("rating", equalTo(8));
+                .body("theJoke", equalTo(j2.getTheJoke()))
+                .body("reference", equalTo(j2.getReference()))
+                .body("type", equalTo(j2.getType()))
+                .body("rating", equalTo(j2.getRating()));
     }
  @Test
     public void testgetall() throws Exception {
@@ -128,7 +128,7 @@ public class JokeResourceTest {
                 .get("/joke/random").then()
                 .assertThat()
                 .statusCode(HttpStatus.OK_200.getStatusCode())
-                .body("theJoke",isIn(Arrays.asList("First Joke","Second Joke","Third Joke")));
+                .body("theJoke",isIn(Arrays.asList(j1.getTheJoke(),j2.getTheJoke(),j3.getTheJoke())));
                 
     }
     
