@@ -8,7 +8,6 @@ package rest;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dtos.JokeDTO;
-import facades.FacadeExample;
 import facades.FacadeJoke;
 import facades.JokePopulator;
 import java.util.List;

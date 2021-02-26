@@ -2,7 +2,6 @@ package rest;
 
 import dtos.JokeDTO;
 import entities.Joke;
-import entities.RenameMe;
 import utils.EMF_Creator;
 import io.restassured.RestAssured;
 import static io.restassured.RestAssured.given;
